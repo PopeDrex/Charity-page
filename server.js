@@ -40,7 +40,8 @@ app.use(verifyJWT);
 app.use("/api/cms", cmsApiRoutes);
 
 // Handle production environment
-if (process.env.NODE_ENV === 'production') {
+// Force production mode on Render
+if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
   // Serve static files from the React app build directory
   app.use(express.static(path.join(__dirname, 'client/dist')));
   
@@ -53,7 +54,13 @@ if (process.env.NODE_ENV === 'production') {
   app.all("*", (req, res) => {
     res.status(404);
     if (req.accepts("html")) {
-      res.sendFile(path.join(__dirname, "view", "404.html"));
+      // Check if view directory exists
+      const viewPath = path.join(__dirname, "view", "404.html");
+      if (fs.existsSync(viewPath)) {
+        res.sendFile(viewPath);
+      } else {
+        res.send("404 Not Found - Page does not exist");
+      }
     } else if (req.accepts("json")) {
       res.json({error: "404 Not Found"});
     } else {

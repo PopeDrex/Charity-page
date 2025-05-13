@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: detour-charity
+    env: node
+    buildCommand: npm run setup
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RENDER
+        value: true
