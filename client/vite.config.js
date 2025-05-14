@@ -19,17 +19,8 @@ export default defineConfig({
   build: {
     outDir: 'dist', // Output directory for build files
     emptyOutDir: true, // Empty the output directory before building
-    sourcemap: false // Set to true if you want sourcemaps in production
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  },
-  build: {
-    outDir: 'dist',
+    sourcemap: false, // Set to true if you want sourcemaps in production
     minify: 'esbuild',
-    sourcemap: false,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -37,6 +28,11 @@ export default defineConfig({
           ui: ['react-icons', 'framer-motion']
         }
       }
+    }
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
     }
   }
 })
