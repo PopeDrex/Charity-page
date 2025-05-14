@@ -2,7 +2,6 @@ services:
   - type: web
     name: detour-charity
     env: node
-    nodeVersion: 18
     buildCommand: cd client && npm install --include=dev && npm run build
     startCommand: node server.js
     envVars:
