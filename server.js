@@ -62,13 +62,8 @@ if (process.env.NODE_ENV === 'production' || process.env.RENDER === 'true') {
         return res.sendFile(clientIndexPath);
       }
       
-      // If client index doesn't exist either, check if view directory exists
-      const viewPath = path.join(__dirname, "view", "404.html");
-      if (fs.existsSync(viewPath)) {
-        return res.sendFile(viewPath);
-      } else {
-        return res.send("404 Not Found - Page does not exist");
-      }
+      // If client index doesn't exist, just return a simple 404 message
+      return res.send("404 Not Found - Page does not exist");
     } else if (req.accepts("json")) {
       return res.json({error: "404 Not Found"});
     } else {
